@@ -35,6 +35,22 @@ public class Usuario extends javax.swing.JInternalFrame {
                 });
         }
     }
+        public void readJTableDescre(String descre) {
+        
+        DefaultTableModel modelo = (DefaultTableModel) tbusuario.getModel();
+        modelo.setNumRows(0);
+        UsuarioDAO udao = new UsuarioDAO();
+
+        for (ClassUsuario user : udao.readDescre(descre)) {
+
+            modelo.addRow(new Object[]{
+                user.getId(),
+                user.getNome(),
+                user.getSobreNome(),
+               });
+
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +70,8 @@ public class Usuario extends javax.swing.JInternalFrame {
         btnnovo = new javax.swing.JButton();
         btnatualizar = new javax.swing.JButton();
         btnexcluir = new javax.swing.JButton();
+        btnprocurar = new javax.swing.JButton();
+        txtprocurar = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         tbusuario = new javax.swing.JTable();
 
@@ -97,6 +115,18 @@ public class Usuario extends javax.swing.JInternalFrame {
             }
         });
 
+        btnprocurar.setText("Procurar");
+        btnprocurar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnprocurarMouseClicked(evt);
+            }
+        });
+        btnprocurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnprocurarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,34 +135,41 @@ public class Usuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtnome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtsobrenome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btncadastrar, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 189, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnatualizar)
-                        .addGap(53, 53, 53)
-                        .addComponent(btnexcluir)
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btncadastrar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtnome, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(txtsobrenome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnatualizar)
+                                .addGap(53, 53, 53)
+                                .addComponent(btnexcluir)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnprocurar)
+                                .addGap(6, 6, 6))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(14, 14, 14)
                 .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnprocurar))
+                .addGap(9, 9, 9)
                 .addComponent(txtsobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnnovo)
@@ -192,7 +229,7 @@ public class Usuario extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -295,6 +332,16 @@ public class Usuario extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_btnexcluirActionPerformed
+
+    private void btnprocurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprocurarActionPerformed
+        // TODO add your handling code here:
+        readJTableDescre(txtprocurar.getText());
+    }//GEN-LAST:event_btnprocurarActionPerformed
+
+    private void btnprocurarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnprocurarMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnprocurarMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -302,12 +349,14 @@ public class Usuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btncadastrar;
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnnovo;
+    private javax.swing.JButton btnprocurar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable tbusuario;
     private javax.swing.JTextField txtnome;
+    private javax.swing.JTextField txtprocurar;
     private javax.swing.JTextField txtsobrenome;
     // End of variables declaration//GEN-END:variables
 

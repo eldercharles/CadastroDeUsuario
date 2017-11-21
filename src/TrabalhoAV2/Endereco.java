@@ -38,6 +38,26 @@ public class Endereco extends javax.swing.JInternalFrame {
         }
 
     }
+    
+         public void readJTableDescre(String descre) {
+        
+        DefaultTableModel modelo = (DefaultTableModel) tbendereco.getModel();
+        modelo.setNumRows(0);
+        EnderecoDAO edao = new EnderecoDAO();
+
+        for (ClassEndereco ender : edao.readDescre(descre)) {
+
+            modelo.addRow(new Object[]{
+                ender.getId_endereco(),
+                ender.getLogradouro(),
+                ender.getComplemento(),
+                ender.getBairro(),
+                ender.getNumero(),
+                ender.getCEP()
+               });
+
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -59,6 +79,8 @@ public class Endereco extends javax.swing.JInternalFrame {
         txtnumero = new javax.swing.JFormattedTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbendereco = new javax.swing.JTable();
+        btnpesquisar = new javax.swing.JButton();
+        txtpesquisar = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -137,17 +159,9 @@ public class Endereco extends javax.swing.JInternalFrame {
                     .addComponent(txtlogradouro)
                     .addComponent(txtbairro)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtcep, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnatualizar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btncadastrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnexcluir))))
+                        .addComponent(txtnumero, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(txtcomplemento))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -156,12 +170,19 @@ public class Endereco extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3)
                                 .addGap(100, 100, 100)
                                 .addComponent(jLabel2))
-                            .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtnumero, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(txtcomplemento)))
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btncadastrar)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtcep, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnatualizar)
+                                    .addComponent(btnexcluir))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
@@ -232,6 +253,13 @@ public class Endereco extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(tbendereco);
 
+        btnpesquisar.setText("Pesquisar");
+        btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,20 +269,30 @@ public class Endereco extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
+                        .addComponent(jScrollPane4))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnpesquisar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnpesquisar)
+                            .addComponent(txtpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)))
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -374,12 +412,18 @@ public class Endereco extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbenderecoKeyReleased
 
+    private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
+        // TODO add your handling code here:
+        readJTableDescre(txtpesquisar.getText());
+    }//GEN-LAST:event_btnpesquisarActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnatualizar;
     private javax.swing.JButton btncadastrar;
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnnovo;
+    private javax.swing.JButton btnpesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -393,6 +437,7 @@ public class Endereco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtcomplemento;
     private javax.swing.JTextField txtlogradouro;
     private javax.swing.JFormattedTextField txtnumero;
+    private javax.swing.JTextField txtpesquisar;
     // End of variables declaration//GEN-END:variables
 
 

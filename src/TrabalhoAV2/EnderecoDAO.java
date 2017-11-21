@@ -83,6 +83,44 @@ stmt = con.prepareStatement("INSERT INTO endereco (logradouro,complemento,bairro
     
     
     
+      public List<ClassEndereco> readDescre(String descre) {
+
+        PreparedStatement stmt = null;
+        ResultSet Result = null;
+
+        List<ClassEndereco> enderecos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM endereco WHERE logradouro LIKE ?");
+            stmt.setString(1, "%"+descre+"%");
+            
+            Result = stmt.executeQuery();
+
+            while (Result.next()) {
+
+                ClassEndereco endereco = new ClassEndereco();
+
+                endereco.setId_endereco(Result.getInt("id_endereco"));
+                endereco.setLogradouro(Result.getString("logradouro"));
+                endereco.setComplemento(Result.getString("complemento"));
+                endereco.setBairro(Result.getString("bairro"));
+                endereco.setNumero(Result.getString("numero"));
+                endereco.setCEP(Result.getString("cep"));
+                
+                enderecos.add(endereco);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, Result);
+        }
+
+        return enderecos;
+
+    }
+
+    
          public void update(ClassEndereco ender) {
         
         PreparedStatement stmt = null;

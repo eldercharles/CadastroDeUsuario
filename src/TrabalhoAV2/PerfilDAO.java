@@ -78,6 +78,45 @@ public class PerfilDAO {
     }
 }
     
+    
+    
+      public List<ClassPerfil> readDescre(String descre) {
+
+        PreparedStatement stmt = null;
+        ResultSet Result = null;
+
+        List<ClassPerfil> perfill = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM perfil WHERE nome LIKE ?");
+            stmt.setString(1, "%"+descre+"%");
+            
+            Result = stmt.executeQuery();
+
+            while (Result.next()) {
+
+                ClassPerfil perfil = new ClassPerfil();
+
+                perfil.setId_perfil(Result.getInt("id_perfil"));
+                perfil.setNomePerfil(Result.getString("nome"));
+                perfil.setDescricao(Result.getString("descricao"));
+                
+                
+                perfill.add(perfil);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PerfilDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, Result);
+        }
+
+        return perfill;
+
+    }
+
+    
+    
     public void update(ClassPerfil perf) {
         
         PreparedStatement stmt = null;

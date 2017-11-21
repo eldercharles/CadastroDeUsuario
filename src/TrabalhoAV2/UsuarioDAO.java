@@ -77,7 +77,39 @@ public class UsuarioDAO {
         
         return usuarios;
     }
-}
+        }
+      public List<ClassUsuario> readDescre(String descre) {
+
+        PreparedStatement stmt = null;
+        ResultSet Result = null;
+
+        List<ClassUsuario> usuarios = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM usuario WHERE nome LIKE ?");
+            stmt.setString(1, "%"+descre+"%");
+            
+            Result = stmt.executeQuery();
+
+            while (Result.next()) {
+
+                ClassUsuario usuario = new ClassUsuario();
+
+                usuario.setId(Result.getInt("id_usuario"));
+                usuario.setNome(Result.getString("nome"));
+                usuario.setSobreNome(Result.getString("sobrenome"));
+                usuarios.add(usuario);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, Result);
+        }
+
+        return usuarios;
+
+    }
         
          public void update(ClassUsuario user) {
         
