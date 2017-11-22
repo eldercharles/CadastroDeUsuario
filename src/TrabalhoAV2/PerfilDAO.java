@@ -88,7 +88,7 @@ public class PerfilDAO {
         List<ClassPerfil> perfill = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM perfil WHERE nome LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM perfil WHERE nomeperfil LIKE ?");
             stmt.setString(1, "%"+descre+"%");
             
             Result = stmt.executeQuery();
@@ -98,7 +98,7 @@ public class PerfilDAO {
                 ClassPerfil perfil = new ClassPerfil();
 
                 perfil.setId_perfil(Result.getInt("id_perfil"));
-                perfil.setNomePerfil(Result.getString("nome"));
+                perfil.setNomePerfil(Result.getString("nomeperfil"));
                 perfil.setDescricao(Result.getString("descricao"));
                 
                 

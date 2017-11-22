@@ -324,7 +324,7 @@ public class Perfil extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbperfilKeyReleased
     }
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
-        // TODO add your handling code here:
+            // TODO add your handling code here:
         readJTableDescre(txtpesquisar.getText());
     }//GEN-LAST:event_btnpesquisarActionPerformed
      
